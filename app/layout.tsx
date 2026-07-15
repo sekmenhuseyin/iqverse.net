@@ -8,16 +8,20 @@ export const metadata: Metadata = {
     template: '%s | IQVerse Tools',
   },
   description:
-    'IQVerse: Free, open-source developer tools built in the browser. JSON formatter, QR code generator, regex tester, link checker and more. All running 100% in your browser.',
+    'IQVerse offers free, open-source browser-based developer tools for AI agent scanning, QR generation, link checking, favicon creation, JSON validation, CSS conversion, image optimization, and more — all running locally in your browser with no login, no telemetry, and no cost.',
   keywords: [
     'developer tools',
     'dev tools',
     'web utilities',
-    'JSON formatter',
-    'open source',
-    'regex tester',
+    'open source apps',
+    'AI agents scanner',
     'QR code generator',
     'link checker',
+    'favicon generator',
+    'JSON formatter',
+    'regex tester',
+    'CSS unit converter',
+    'image optimizer',
     'browser-based tools',
     'free tools',
     'client-side',
@@ -25,28 +29,48 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Sekmen.Dev' }],
   robots: 'index, follow',
+  alternates: {
+    canonical: 'https://iqverse.net/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://iqverse.net',
+    url: 'https://iqverse.net/',
     siteName: 'IQVerse',
+    title: 'IQVerse | Free Open-Source Online Developer Tools & Utilities',
+    description:
+      'Explore IQVerse’s free, open-source browser tools for AI agent checks, QR codes, link scanning, favicon design, JSON formatting, regex testing, CSS conversion, and image optimization.',
     images: [
       {
         url: '/og-image-1200x630.png',
         width: 1200,
         height: 630,
+        alt: 'IQVerse home page preview showing open-source browser-based developer tools',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
+    title: 'IQVerse | Free Open-Source Online Developer Tools & Utilities',
+    description:
+      'Free, open-source browser-based developer tools for AI agent scanning, QR codes, link checking, favicon generation, JSON processing, and more.',
     images: ['/og-image-1200x630.png'],
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-icon.png',
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', rel: 'icon' },
+    ],
+    apple: [{ url: '/apple-icon.png', sizes: '180x180', type: 'image/png' }],
   },
   manifest: '/manifest.json',
+  other: {
+    'msapplication-TileColor': '#ffffff',
+    'msapplication-TileImage': '/ms-icon-144x144.png',
+    'theme-color': '#ffffff',
+    language: 'English',
+  },
 };
 
 export default function RootLayout({
