@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useMemo, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { tools, getUniqueCategories, getUniqueStatuses, filterTools, sortTools } from '@/lib/tools';
 import type { Tool } from '@/lib/tools';
@@ -96,7 +97,7 @@ export default function Home() {
               {isEmoji(tool.icon) ? (
                 <span>{tool.icon}</span>
               ) : (
-                <img src={tool.icon} alt={tool.name} loading="lazy" />
+                <Image src={tool.icon} alt={tool.name} height={34} width={34} priority={false} />
               )}
             </div>
             <div className={styles.cardStatus}>
