@@ -100,8 +100,7 @@ export default function Home() {
               )}
             </div>
             <div className={styles.cardStatus}>
-              <span className={`${styles.statusDot} ${DOT_CLASS[tool.type]}`}></span>
-              <span className={styles.statusLabel}>{STATUS_LABELS[tool.type]}</span>
+              <span className={`${styles.statusLabel} ${DOT_CLASS[tool.type]}`}>{STATUS_LABELS[tool.type]}</span>
             </div>
           </div>
           <div className={styles.cardName} dangerouslySetInnerHTML={{ __html: highlightText(tool.name, query) }} />
@@ -234,7 +233,11 @@ export default function Home() {
                   setSidebarOpen(false);
                 }}
               >
-                <span className={styles.catIcon}>{s === 'all' ? '⊞' : STATUS_ICONS[s as keyof typeof STATUS_ICONS]}</span>
+                <span
+                  className={`${styles.catIcon} ${s !== 'all' ? DOT_CLASS[s as keyof typeof DOT_CLASS] : ''}`}
+                >
+                  {s === 'all' ? '⊞' : STATUS_ICONS[s as keyof typeof STATUS_ICONS]}
+                </span>
                 <span style={{ flex: 1 }}>{s === 'all' ? 'All' : STATUS_LABELS[s as keyof typeof STATUS_LABELS]}</span>
                 <span className={styles.catCount}>{statusCounts[s]}</span>
               </button>
