@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import { getSecureRandomNumber } from '@/lib/tools';
 import sharedStyles from '@/styles/shared-tool-styles.module.css';
 import styles from '@/styles/chromata.module.css';
@@ -430,9 +430,10 @@ export default function Chromata() {
     const stored = typeof window !== 'undefined' ? window.localStorage.getItem('chromata_saved') : null;
     if (stored) {
       try {
-        setSavedPalettes(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        Promise.resolve().then(() => setSavedPalettes(parsed));
       } catch {
-        setSavedPalettes([]);
+        Promise.resolve().then(() => setSavedPalettes([]));
       }
     }
   }, []);
@@ -448,7 +449,7 @@ export default function Chromata() {
     };
   }, [toastMessage]);
 
-  const getExportCode = () => {
+  const getExportCode = useCallback(() => {
     switch (exportFormat) {
       case 'css':
         return exportCSS(palette, exportPrefix, colorFormat);
@@ -465,9 +466,9 @@ export default function Chromata() {
       default:
         return exportCSS(palette, exportPrefix, colorFormat);
     }
-  };
+  }, [exportFormat, palette, exportPrefix, colorFormat]);
 
-  const codeOutput = useMemo(getExportCode, [palette, exportPrefix, exportFormat, colorFormat]);
+  const codeOutput = useMemo(() => getExportCode(), [getExportCode]);
 
   const showToast = (message: string) => {
     setToastMessage(message);

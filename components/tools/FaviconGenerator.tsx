@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import styles from '@/styles/favicongen.module.css';
 
 type PreviewImage = {
@@ -19,6 +19,14 @@ const defaultValues = {
   htmlLang: 'en',
   keywords: 'portfolio, design, creative studio',
 };
+
+const previewSizes = [
+  { id: 'prev16', size: 16 },
+  { id: 'prev32', size: 32 },
+  { id: 'prev64', size: 64 },
+  { id: 'prev180', size: 60 },
+  { id: 'prev192', size: 48 },
+];
 
 export default function FaviconGenerator() {
   const [image, setImage] = useState<PreviewImage | null>(null);
@@ -61,17 +69,6 @@ export default function FaviconGenerator() {
     };
   }, []);
 
-  const previewSizes = useMemo(
-    () => [
-      { id: 'prev16', size: 16 },
-      { id: 'prev32', size: 32 },
-      { id: 'prev64', size: 64 },
-      { id: 'prev180', size: 60 },
-      { id: 'prev192', size: 48 },
-    ],
-    []
-  );
-
   const handleFile = (file?: File | null) => {
     if (!file) return;
     const reader = new FileReader();
@@ -88,7 +85,7 @@ export default function FaviconGenerator() {
     reader.readAsDataURL(file);
   };
 
-  const renderPreviews = (img: HTMLImageElement) => {
+  const renderPreviews = useCallback((img: HTMLImageElement) => {
     previewSizes.forEach(({ id, size }) => {
       const element = document.getElementById(id) as HTMLCanvasElement | null;
       if (!element) return;
@@ -97,14 +94,14 @@ export default function FaviconGenerator() {
       ctx.clearRect(0, 0, size, size);
       ctx.drawImage(img, 0, 0, size, size);
     });
-  };
+  }, []);
 
   useEffect(() => {
     if (!image) return;
     const img = new Image();
     img.onload = () => renderPreviews(img);
     img.src = image.dataUrl;
-  }, [image, previewSizes]);
+  }, [image, renderPreviews]);
 
   const clearImage = () => {
     setImage(null);

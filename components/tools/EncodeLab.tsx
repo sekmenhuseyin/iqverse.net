@@ -7,7 +7,7 @@ function b64Encode(input: string, urlSafe = false) {
   try {
     const encoded = typeof btoa !== 'undefined' ? btoa(unescape(encodeURIComponent(input))) : Buffer.from(input, 'utf-8').toString('base64');
     return urlSafe ? encoded.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '') : encoded;
-  } catch (e) {
+  } catch {
     return 'Encoding error';
   }
 }
@@ -21,7 +21,7 @@ function b64Decode(input: string, urlSafe = false) {
     }
     const decoded = typeof atob !== 'undefined' ? decodeURIComponent(escape(atob(data))) : Buffer.from(data, 'base64').toString('utf-8');
     return decoded;
-  } catch (e) {
+  } catch {
     return 'Decoding error';
   }
 }
@@ -44,14 +44,14 @@ export default function EncodeLab() {
   function handleUrlEncode(full = false) {
     try {
       setUrlOut(full ? encodeURI(text) : encodeURIComponent(text));
-    } catch (e) {
+    } catch {
       setUrlOut('Error');
     }
   }
   function handleUrlDecode() {
     try {
       setUrlIn(decodeURIComponent(text));
-    } catch (e) {
+    } catch {
       setUrlIn('Error');
     }
   }

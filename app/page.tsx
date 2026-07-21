@@ -156,6 +156,39 @@ export default function Home() {
     return groups;
   }, [filtered, showGrouped]);
 
+  let content = null;
+
+  if (filtered.length === 0) {
+    content = (
+      <div className={styles.empty}>
+        <div className={styles.emptyIcon}>🔍</div>
+        <h3>No tools found</h3>
+        <p>Try a different search or filter.</p>
+      </div>
+    );
+  } else if (showGrouped) {
+    content = (
+      <>
+        {Object.entries(groupedTools).map(([cat, tools]) => (
+          <div key={cat}>
+            <p className={styles.sectionHead}>
+              {CAT_ICONS[cat] || ''} {cat}
+            </p>
+            <div className={styles.cardGrid}>
+              {tools.map(t => renderToolCard(t, activeQuery))}
+            </div>
+          </div>
+        ))}
+      </>
+    );
+  } else {
+    content = (
+      <div className={styles.cardGrid}>
+        {filtered.map(t => renderToolCard(t, activeQuery))}
+      </div>
+    );
+  }
+
   return (
     <div className={styles.container}>
       {/* TOP NAV */}
@@ -287,32 +320,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div id="content-area">
-            {filtered.length === 0 ? (
-              <div className={styles.empty}>
-                <div className={styles.emptyIcon}>🔍</div>
-                <h3>No tools found</h3>
-                <p>Try a different search or filter.</p>
-              </div>
-            ) : showGrouped ? (
-              <>
-                {Object.entries(groupedTools).map(([cat, tools]) => (
-                  <div key={cat}>
-                    <p className={styles.sectionHead}>
-                      {CAT_ICONS[cat] || ''} {cat}
-                    </p>
-                    <div className={styles.cardGrid}>
-                      {tools.map(t => renderToolCard(t, activeQuery))}
-                    </div>
-                  </div>
-                ))}
-              </>
-            ) : (
-              <div className={styles.cardGrid}>
-                {filtered.map(t => renderToolCard(t, activeQuery))}
-              </div>
-            )}
-          </div>
+          <div id="content-area">{content}</div>
         </main>
       </div>
     </div>

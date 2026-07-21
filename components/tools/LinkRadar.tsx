@@ -87,9 +87,10 @@ export default function LinkRadar() {
     const controller = new AbortController();
     abortRef.current = controller;
     const signal = controller.signal;
-    let queue: ScanItem[] = [{ url: root, depth: 0, sourceUrl: root, tag: '<root>', text: 'Entry Point' }];
+    const queue: ScanItem[] = [{ url: root, depth: 0, sourceUrl: root, tag: '<root>', text: 'Entry Point' }];
     const visited = new Set<string>();
     const pageFetched = new Set<string>();
+    let checkedCountLocal = 0;
 
     setResults([]);
     setLog([]);
@@ -114,6 +115,7 @@ export default function LinkRadar() {
         if (!r) continue;
         setResults((s) => [...s, r]);
         setCheckedCount((c) => c + 1);
+        checkedCountLocal++;
         const statusText = r.status === 0 ? 'ERR' : String(r.status);
         logLine(`[${statusText}] ${r.url} (${r.time}ms)`);
 
@@ -146,7 +148,7 @@ export default function LinkRadar() {
 
     setRunning(false);
     abortRef.current = null;
-    logLine(`Scan finished. ${results.length} URLs checked.`);
+    logLine(`Scan finished. ${checkedCountLocal} URLs checked.`);
   }, [extractLinks, logLine, opts, processBatch, running]);
 
   useEffect(() => {
