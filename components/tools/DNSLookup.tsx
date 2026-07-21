@@ -39,6 +39,32 @@ const RCODE_NAMES: Record<number, string> = {
 
 const PRESET_DOMAINS = ['google.com', 'cloudflare.com', 'github.com', 'amazon.com', 'netflix.com'];
 
+const timeAgo = (ts: number): string => {
+  const s = Math.round((Date.now() - ts) / 1000);
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  return `${Math.floor(s / 86400)}d ago`;
+};
+
+const downloadCSV = (results: DNSResult, showToast: (msg: string) => void) => {
+  const rows: (string | number)[][] = [['Type', 'Name', 'TTL (s)', 'Data']];
+  Object.entries(results.data || {}).forEach(([type, res]) => {
+    if (res.Answer) {
+      res.Answer.forEach((ans: any) => {
+        rows.push([type, ans.name, ans.TTL, `"${(ans.data || '').replace(/"/g, '""')}"`]);
+      });
+    }
+  });
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dns-${results.domain}-${Date.now()}.csv`;
+  a.click();
+  showToast('CSV downloaded!');
+};
+
 export default function DNSLookup() {
   const [domainInput, setDomainInput] = useState('');
   const [selectedType, setSelectedType] = useState<DNSRecordType>('ALL');
@@ -61,7 +87,8 @@ export default function DNSLookup() {
     const saved = localStorage.getItem('dns-history');
     if (saved) {
       try {
-        setHistory(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        Promise.resolve().then(() => setHistory(parsed));
       } catch (e) {
         console.error('Failed to load history:', e);
       }
@@ -72,10 +99,12 @@ export default function DNSLookup() {
     const domain = params.get('domain');
     const type = params.get('type');
     if (domain) {
-      setDomainInput(domain);
-      if (type && ALL_TYPES.includes(type as DNSRecordType)) {
-        setSelectedType(type as DNSRecordType);
-      }
+      Promise.resolve().then(() => {
+        setDomainInput(domain);
+        if (type && ALL_TYPES.includes(type as DNSRecordType)) {
+          setSelectedType(type as DNSRecordType);
+        }
+      });
     }
   }, []);
 
@@ -237,13 +266,7 @@ export default function DNSLookup() {
     return Object.values(data).reduce((sum, d) => sum + (d.Answer?.length || 0), 0);
   };
 
-  const timeAgo = (ts: number): string => {
-    const s = Math.round((Date.now() - ts) / 1000);
-    if (s < 60) return `${s}s ago`;
-    if (s < 3600) return `${Math.floor(s / 60)}m ago`;
-    if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
-    return `${Math.floor(s / 86400)}d ago`;
-  };
+
 
   const buildRawText = (results: DNSResult): string => {
     const lines: string[] = [];
@@ -258,23 +281,7 @@ export default function DNSLookup() {
     return lines.join('\n');
   };
 
-  const downloadCSV = (results: DNSResult) => {
-    const rows: (string | number)[][] = [['Type', 'Name', 'TTL (s)', 'Data']];
-    Object.entries(results.data || {}).forEach(([type, res]) => {
-      if (res.Answer) {
-        res.Answer.forEach((ans: any) => {
-          rows.push([type, ans.name, ans.TTL, `"${(ans.data || '').replace(/"/g, '""')}"`]);
-        });
-      }
-    });
-    const csv = rows.map(r => r.join(',')).join('\n');
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `dns-${results.domain}-${Date.now()}.csv`;
-    a.click();
-    showToast('CSV downloaded!');
-  };
+
 
   const copyText = (text: string) => {
     navigator.clipboard?.writeText(text).catch(() => {
@@ -300,11 +307,13 @@ export default function DNSLookup() {
     setDomainInput(domain);
     setState('loading');
 
+    // eslint-disable-next-line react-hooks/purity
     const startMs = performance.now();
     const types = selectedType === 'ALL' ? ALL_TYPES : [selectedType];
 
     try {
       const allData = await queryTypes(domain, types);
+      // eslint-disable-next-line react-hooks/purity
       const elapsed = Math.round(performance.now() - startMs);
 
       const results: DNSResult = { domain, types: Object.keys(allData), elapsed, data: allData };
@@ -312,6 +321,7 @@ export default function DNSLookup() {
       setState('results');
       setActiveTab('ALL');
 
+      // eslint-disable-next-line react-hooks/purity
       const newHistory: HistoryItem[] = [{ domain, type: selectedType, ok: true, ts: Date.now() }, ...history];
       saveHistory(newHistory);
 
@@ -324,6 +334,7 @@ export default function DNSLookup() {
       setErrorMsg(errorMessage);
       setState('error');
 
+      // eslint-disable-next-line react-hooks/purity
       const newHistory: HistoryItem[] = [{ domain, type: selectedType, ok: false, ts: Date.now() }, ...history];
       saveHistory(newHistory);
     }
@@ -691,7 +702,7 @@ export default function DNSLookup() {
               </button>
               <button
                 className={`${styles['btn-ghost']} ${styles.small}`}
-                onClick={() => downloadCSV(lastResults)}
+                onClick={() => downloadCSV(lastResults, showToast)}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

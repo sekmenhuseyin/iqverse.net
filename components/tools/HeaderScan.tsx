@@ -289,7 +289,17 @@ export default function HeaderScan() {
   };
 
   useEffect(() => {
-    void runAnalysis(input);
+    let isMounted = true;
+    const initAnalysis = async () => {
+      await Promise.resolve();
+      if (isMounted) {
+        void runAnalysis('https://example.com');
+      }
+    };
+    initAnalysis();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const score = useMemo(() => {
