@@ -26,6 +26,7 @@ export const tools: Tool[] = [
   // Security
   { name: "Password Generator", desc: "Generate strong passwords and secrets. All generation happens locally", icon: "/password/logoX4.png", url: "/password/", type: "open", tags: "password secret random secure generate entropy", cat: "Security" },
   { name: "HeaderScan", desc: "Inspect HTTP response headers for any URL with detailed breakdowns", icon: "/headers/logoX4.png", url: "/headers/", type: "open", tags: "http headers security inspect network response", cat: "Security" },
+  { name: "Hashing", desc: "Compute SHA digests and HMAC values locally in your browser with hex or Base64 output.", icon: "🔒", url: "/hashing/", type: "open", tags: "hash sha hmac digest security crypto", cat: "Security" },
   
   // Design
   { name: "Color Palette Generator", desc: "Create harmonious color palettes and extract colors from images", icon: "/chromata/logoX4.png", url: "/chromata/", type: "open", tags: "color palette css design hex rgb hsl", cat: "Design" },
