@@ -18,6 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'chromata',
     'dnslookup',
     'hashing',
+    'compression',
+    'url',
     'goo',
     'ges',
     'gyp',

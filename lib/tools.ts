@@ -21,6 +21,8 @@ export const tools: Tool[] = [
   { name: "Favicon Generator", desc: "Create favicons in all required sizes plus manifest.json", icon: "/favicongen/logoX4.png", url: "/favicongen/", type: "open", tags: "favicon icon manifest apple touch 16 32 180", cat: "Browser Tools" },
   { name: "JSON Formatter", desc: "Format, validate, minify and sort keys in your JSON. No upload needed", icon: "/json/logoX4.png", url: "/json/", type: "open", tags: "json format validate minify lint sort", cat: "Browser Tools" },
   { name: "Base64 & URL Encoder", desc: "Encode/decode Base64, URL parameters, JWT tokens and Data URIs", icon: "/encodelab/logoX4.png", url: "/encodelab/", type: "open", tags: "base64 url encode decode jwt data uri", cat: "Browser Tools" },
+  { name: "URL Tools", desc: "Parse, build, encode and decode URLs with query parameter editing in the browser.", icon: "🌐", url: "/url/", type: "open", tags: "url parse build encode decode query string", cat: "Browser Tools" },
+  { name: "Compression", desc: "Compress and decompress text using browser-native Deflate support.", icon: "🗜️", url: "/compression/", type: "open", tags: "compress decompress deflate base64 text", cat: "Browser Tools" },
   { name: "RegEx Forge", desc: "Build and test regular expressions with live highlighting and explanations", icon: "/regex/logoX4.png", url: "/regex/", type: "open", tags: "regex regexp pattern match test explain", cat: "Browser Tools" },
   
   // Security
