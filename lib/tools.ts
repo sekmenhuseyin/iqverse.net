@@ -21,11 +21,15 @@ export const tools: Tool[] = [
   { name: "Favicon Generator", desc: "Create favicons in all required sizes plus manifest.json", icon: "/favicongen/logoX4.png", url: "/favicongen/", type: "open", tags: "favicon icon manifest apple touch 16 32 180", cat: "Browser Tools" },
   { name: "JSON Formatter", desc: "Format, validate, minify and sort keys in your JSON. No upload needed", icon: "/json/logoX4.png", url: "/json/", type: "open", tags: "json format validate minify lint sort", cat: "Browser Tools" },
   { name: "Base64 & URL Encoder", desc: "Encode/decode Base64, URL parameters, JWT tokens and Data URIs", icon: "/encodelab/logoX4.png", url: "/encodelab/", type: "open", tags: "base64 url encode decode jwt data uri", cat: "Browser Tools" },
+  { name: "URL Tools", desc: "Parse, build, encode and decode URLs with query parameter editing in the browser.", icon: "🌐", url: "/url/", type: "open", tags: "url parse build encode decode query string", cat: "Browser Tools" },
+  { name: "Compression", desc: "Compress and decompress text using browser-native Deflate support.", icon: "🗜️", url: "/compression/", type: "open", tags: "compress decompress deflate base64 text", cat: "Browser Tools" },
+  { name: "Data Converter", desc: "Convert JSON, CSV, Hex, and Base64 data in the browser without uploading anything.", icon: "🔁", url: "/dataconverter/", type: "open", tags: "json csv hex base64 convert format", cat: "Browser Tools" },
   { name: "RegEx Forge", desc: "Build and test regular expressions with live highlighting and explanations", icon: "/regex/logoX4.png", url: "/regex/", type: "open", tags: "regex regexp pattern match test explain", cat: "Browser Tools" },
   
   // Security
   { name: "Password Generator", desc: "Generate strong passwords and secrets. All generation happens locally", icon: "/password/logoX4.png", url: "/password/", type: "open", tags: "password secret random secure generate entropy", cat: "Security" },
   { name: "HeaderScan", desc: "Inspect HTTP response headers for any URL with detailed breakdowns", icon: "/headers/logoX4.png", url: "/headers/", type: "open", tags: "http headers security inspect network response", cat: "Security" },
+  { name: "Hashing", desc: "Compute SHA digests and HMAC values locally in your browser with hex or Base64 output.", icon: "🔒", url: "/hashing/", type: "open", tags: "hash sha hmac digest security crypto", cat: "Security" },
   
   // Design
   { name: "Color Palette Generator", desc: "Create harmonious color palettes and extract colors from images", icon: "/chromata/logoX4.png", url: "/chromata/", type: "open", tags: "color palette css design hex rgb hsl", cat: "Design" },

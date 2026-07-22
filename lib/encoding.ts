@@ -20,3 +20,36 @@ export function b64Decode(input: string, urlSafe = false): string {
     return 'Decoding error';
   }
 }
+
+export function hexEncode(input: string): string {
+  try {
+    const encoder = typeof TextEncoder !== 'undefined' ? new TextEncoder() : null;
+    const bytes = encoder ? encoder.encode(input) : Buffer.from(input, 'utf-8');
+    return Array.from(bytes)
+      .map((byte) => byte.toString(16).padStart(2, '0'))
+      .join('');
+  } catch {
+    return 'Encoding error';
+  }
+}
+
+export function hexDecode(input: string): string {
+  try {
+    const cleaned = input.replace(/\s+/g, '');
+    if (cleaned.length % 2 !== 0) {
+      throw new Error('Hex input must have an even length.');
+    }
+    const bytes = new Uint8Array(cleaned.length / 2);
+    for (let i = 0; i < bytes.length; i += 1) {
+      const byte = parseInt(cleaned.slice(i * 2, i * 2 + 2), 16);
+      if (Number.isNaN(byte)) {
+        throw new Error('Invalid hex input.');
+      }
+      bytes[i] = byte;
+    }
+    const decoder = typeof TextDecoder !== 'undefined' ? new TextDecoder() : null;
+    return decoder ? decoder.decode(bytes) : Buffer.from(bytes).toString('utf-8');
+  } catch {
+    return 'Decoding error';
+  }
+}

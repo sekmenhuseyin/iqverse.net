@@ -7,15 +7,24 @@ const baseUrl = 'https://iqverse.net'
 export default function sitemap(): MetadataRoute.Sitemap {
   const tools = [
     'agentscan',
-    'chromata',
-    'encodelab',
-    'headers',
-    'json',
-    'linkradar',
-    'password',
     'qrforge',
+    'linkradar',
+    'favicongen',
+    'json',
+    'encodelab',
     'regex',
+    'password',
+    'headers',
+    'chromata',
     'dnslookup',
+    'hashing',
+    'compression',
+    'dataconverter',
+    'url',
+    'goo',
+    'ges',
+    'gyp',
+    'gst',
   ]
 
   return [
@@ -26,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...tools.map((tool) => ({
-      url: `${baseUrl}/${tool}`,
+      url: `${baseUrl}/${tool}/`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,

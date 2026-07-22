@@ -301,7 +301,7 @@ export default function Home() {
             <span className={styles.resultCount}>
               <strong>{filtered.length}</strong> tool{filtered.length !== 1 ? 's' : ''}
             </span>
-            <optgroup className={styles.sortWrap} aria-label="Sort options">
+            <div className={styles.sortWrap} aria-label="Sort options">
               <button
                 className={`${styles.sortBtn} ${activeSort === 'default' ? styles.sortBtnActive : ''}`}
                 onClick={() => setActiveSort('default')}
@@ -316,7 +316,7 @@ export default function Home() {
               >
                 A-Z
               </button>
-            </optgroup>
+            </div>
           </div>
 
           <div id="content-area">{content}</div>
