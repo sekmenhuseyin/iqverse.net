@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'dnslookup',
     'hashing',
     'compression',
+    'dataconverter',
     'url',
     'goo',
     'ges',
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...tools.map((tool) => ({
-      url: `${baseUrl}/${tool}`,
+      url: `${baseUrl}/${tool}/`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
