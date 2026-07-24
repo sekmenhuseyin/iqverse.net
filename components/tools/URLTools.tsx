@@ -111,16 +111,16 @@ export default function URLTools() {
           </div>
 
           <div className={sharedStyles.buttonGroup}>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={parseUrl}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={parseUrl}>
               Parse URL
             </button>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={buildUrl}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={buildUrl}>
               Build URL
             </button>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={encodeUrl}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={encodeUrl}>
               Encode URL
             </button>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={decodeUrl}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={decodeUrl}>
               Decode URL
             </button>
           </div>

@@ -171,7 +171,7 @@ export default function LinkRadar() {
         <div className={sharedStyles.card}>
           <div style={{ display: 'flex', gap: 8 }}>
             <input value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://example.com" style={{ flex: 1 }} />
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={handleToggle}>{running ? 'Stop' : 'Scan'}</button>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={handleToggle}>{running ? 'Stop' : 'Scan'}</button>
           </div>
 
           <div style={{ marginTop: 12, display: 'flex', gap: 12, alignItems: 'center' }}>

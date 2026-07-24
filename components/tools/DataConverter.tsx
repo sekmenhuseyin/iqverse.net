@@ -126,7 +126,7 @@ export default function DataConverter() {
           </div>
 
           <div className={sharedStyles.buttonGroup}>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={convert}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={convert}>
               Convert
             </button>
           </div>

@@ -28,8 +28,8 @@ function arrayBufferToHex(buffer: ArrayBuffer): string {
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
   const bytes = new Uint8Array(buffer);
   let binary = '';
-  for (let i = 0; i < bytes.length; i += 1) {
-    binary += String.fromCharCode(bytes[i]);
+  for (const byte of bytes) {
+    binary += String.fromCodePoint(byte);
   }
   return typeof btoa !== 'undefined' ? btoa(binary) : Buffer.from(bytes).toString('base64');
 }
@@ -117,7 +117,7 @@ export default function Hashing() {
               </select>
             </label>
 
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={handleCompute}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={handleCompute}>
               Compute
             </button>
           </div>

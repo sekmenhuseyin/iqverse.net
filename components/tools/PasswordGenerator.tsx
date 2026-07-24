@@ -257,10 +257,10 @@ export default function PasswordGenerator() {
           </div>
 
           <div className={sharedStyles.buttonGroup}>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={generatePassword}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={generatePassword}>
               Generate Password
             </button>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={handleClear}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={handleClear}>
               Clear
             </button>
           </div>
@@ -281,7 +281,7 @@ export default function PasswordGenerator() {
           <div className={sharedStyles.sectionLabel}>Generated Password</div>
           <div className={sharedStyles.card}>
             <textarea readOnly value={output} className={sharedStyles.outputArea} rows={4} />
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonSmall}`} onClick={handleCopy}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSmall}`} onClick={handleCopy}>
               {copied ? 'Copied!' : 'Copy'}
             </button>
           </div>

@@ -238,19 +238,19 @@ export default function Chromata() {
     <div className={styles.appLayout}>
       <aside className={styles.sidebar}>
         <div className={styles.stepsNav}>
-          <button className={`${styles.stepBtn} ${activeStep === 'seed' ? styles.active : ''}`} onClick={() => setActiveStep('seed')}>
+          <button type="button" className={`${styles.stepBtn} ${activeStep === 'seed' ? styles.active : ''}`} onClick={() => setActiveStep('seed')}>
             <span className={styles.stepNum}>01</span>
             <span>Seed Color</span>
           </button>
-          <button className={`${styles.stepBtn} ${activeStep === 'harmony' ? styles.active : ''}`} onClick={() => setActiveStep('harmony')}>
+          <button type="button" className={`${styles.stepBtn} ${activeStep === 'harmony' ? styles.active : ''}`} onClick={() => setActiveStep('harmony')}>
             <span className={styles.stepNum}>02</span>
             <span>Harmony</span>
           </button>
-          <button className={`${styles.stepBtn} ${activeStep === 'refine' ? styles.active : ''}`} onClick={() => setActiveStep('refine')}>
+          <button type="button" className={`${styles.stepBtn} ${activeStep === 'refine' ? styles.active : ''}`} onClick={() => setActiveStep('refine')}>
             <span className={styles.stepNum}>03</span>
             <span>Refine</span>
           </button>
-          <button className={`${styles.stepBtn} ${activeStep === 'export' ? styles.active : ''}`} onClick={() => setActiveStep('export')}>
+          <button type="button" className={`${styles.stepBtn} ${activeStep === 'export' ? styles.active : ''}`} onClick={() => setActiveStep('export')}>
             <span className={styles.stepNum}>04</span>
             <span>Export</span>
           </button>
@@ -283,7 +283,7 @@ export default function Chromata() {
 
               <div className={styles.fieldGroup}>
                 <label className={styles.fieldLabel}>Random seed</label>
-                <button className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={() => setSeedHex(randomHex())}>
+                <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonSecondary}`} onClick={() => setSeedHex(randomHex())}>
                   Randomize Color
                 </button>
               </div>
@@ -334,7 +334,7 @@ export default function Chromata() {
                 </div>
               </div>
 
-              <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('harmony')}>
+              <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('harmony')}>
                 Next: Harmony →
               </button>
             </div>
@@ -384,7 +384,7 @@ export default function Chromata() {
                 </label>
               </div>
 
-              <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('refine')}>
+              <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('refine')}>
                 Next: Refine →
               </button>
             </div>
@@ -469,7 +469,7 @@ export default function Chromata() {
                 </div>
               </div>
 
-              <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('export')}>
+              <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={() => setActiveStep('export')}>
                 Next: Export →
               </button>
             </div>
@@ -525,12 +525,12 @@ export default function Chromata() {
               <div className={styles.codeBlockWrapper}>
                 <div className={styles.codeBlockHeader}>
                   <span>{exportFormat === 'css' ? 'CSS Variables' : exportFormat === 'tailwind' ? 'Tailwind Config' : exportFormat === 'figma' ? 'Figma Tokens' : exportFormat === 'sass' ? 'SASS Variables' : exportFormat === 'json' ? 'JSON' : 'Swift UIColor'}</span>
-                  <button className={styles.iconBtn} onClick={copyCode} title="Copy to clipboard">Copy</button>
+                  <button type="button" className={styles.iconBtn} onClick={copyCode} title="Copy to clipboard">Copy</button>
                 </div>
                 <pre className={styles.codeBlock}>{codeOutput}</pre>
               </div>
 
-              <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={downloadFile}>
+              <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={downloadFile}>
                 Download File
               </button>
             </div>
@@ -551,10 +551,10 @@ export default function Chromata() {
             </div>
           </div>
           <div className={styles.previewActions}>
-            <button className={styles.iconBtnLg} onClick={() => setViewMode(viewMode === 'strip' ? 'grid' : 'strip')} title="Toggle view mode">
+            <button type="button" className={styles.iconBtnLg} onClick={() => setViewMode(viewMode === 'strip' ? 'grid' : 'strip')} title="Toggle view mode">
               {viewMode === 'strip' ? 'Grid' : 'Strip'}
             </button>
-            <button className={styles.iconBtnLg} onClick={savePalette} title="Save palette">
+            <button type="button" className={styles.iconBtnLg} onClick={savePalette} title="Save palette">
               Save
             </button>
           </div>
@@ -641,7 +641,7 @@ export default function Chromata() {
         <div className={styles.savedSection}>
           <div className={styles.savedHeader}>
             <span className={styles.savedTitle}>Saved Palettes</span>
-            <button className={styles.iconBtn} onClick={clearSaved}>
+            <button type="button" className={styles.iconBtn} onClick={clearSaved}>
               Clear
             </button>
           </div>

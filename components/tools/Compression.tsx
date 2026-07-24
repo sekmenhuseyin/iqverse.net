@@ -12,7 +12,7 @@ async function compressText(text: string): Promise<string> {
   const compressed = await new Response(
     new Blob([await new Response(encoder.encode(text)).arrayBuffer()]).stream().pipeThrough(new CompressionStream('deflate')),
   ).arrayBuffer();
-  return btoa(String.fromCharCode(...new Uint8Array(compressed)));
+  return btoa(String.fromCodePoint(...new Uint8Array(compressed)));
 }
 
 async function decompressText(base64: string): Promise<string> {
@@ -87,7 +87,7 @@ export default function Compression() {
           </div>
 
           <div className={sharedStyles.buttonGroup}>
-            <button className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={run}>
+            <button type="button" className={`${sharedStyles.button} ${sharedStyles.buttonPrimary}`} onClick={run}>
               Run
             </button>
           </div>
