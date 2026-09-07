@@ -271,6 +271,15 @@ const checks = [
                 Notify me
               </button>
             </div>
+            <input
+              id="waitlist-questions"
+              name="questions"
+              type="text"
+              class={styles.waitlistHoneypot}
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
             <CapCaptcha id="waitlist-captcha" />
             <p id="waitlist-status" class={styles.waitlistStatus}></p>
           </form>
@@ -290,10 +299,15 @@ const checks = [
   import { validateCaptcha } from '@/lib/captcha';
   import styles from '@/styles/saas-landing.module.css';
 
-  const WAITLIST_ENDPOINT = 'https://sekmen.dev/api/submit';
+  const WAITLIST_ENDPOINT = 'https://formhub.sekmen.dev/api/v1/forms/submit';
+
+  const ERROR_MESSAGES: Record<string, string> = {
+    captcha_failed: 'CAPTCHA check failed. Please try the challenge again.',
+  };
 
   const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
   const emailInput = document.getElementById('waitlist-email') as HTMLInputElement | null;
+  const honeypotInput = document.getElementById('waitlist-questions') as HTMLInputElement | null;
   const submitBtn = document.getElementById('waitlist-submit') as HTMLButtonElement | null;
   const statusEl = document.getElementById('waitlist-status');
 
@@ -323,16 +337,27 @@ const checks = [
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: 'GTR Waitlist',
-          email,
-          message: 'Waitlist signup for GTR (site-wide crawler & monitor).',
-          company: '',
-          phone: '',
-          'cap-token': token,
+          siteId: 'iqverse.net',
+          formId: 'waitinglist',
+          captchaToken: token,
+          fields: {
+            name: 'GTR Waitlist',
+            email,
+            company: '',
+            phone: '',
+            message: 'Waitlist signup for GTR (site-wide crawler & monitor).',
+            questions: honeypotInput?.value ?? '',
+          },
         }),
       });
 
-      if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
+      const result = (await res.json().catch(() => null)) as { ok?: boolean; error?: string } | null;
+
+      if (!res.ok || !result?.ok) {
+        const code = result?.error ?? '';
+        setStatus(ERROR_MESSAGES[code] ?? 'Something went wrong. Please try again in a moment.', 'err');
+        return;
+      }
 
       setStatus("You're on the list! We'll email you when GTR is ready.", 'ok');
       form.reset();

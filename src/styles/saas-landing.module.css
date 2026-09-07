@@ -585,6 +585,18 @@
   transform: none;
 }
 
+.waitlistHoneypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  pointer-events: none;
+}
+
 .waitlistStatus {
   font-size: 0.85rem;
   min-height: 1.1em;
